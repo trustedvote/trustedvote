@@ -1,9 +1,19 @@
+*.la
+*.lo
 *.o
 .deps/
+.dirstamp
+.libs
 .vscode/
+/share/autoconf/autoconf/libtool.m4
+/share/autoconf/autoconf/ltoptions.m4
+/share/autoconf/autoconf/ltsugar.m4
+/share/autoconf/autoconf/ltversion.m4
+/share/autoconf/autoconf/lt~obsolete.m4
 Makefile
 Makefile.in
 aclocal.m4
+ar-lib
 autom4te.cache/
 compile
 config.guess
@@ -13,4 +23,6 @@ config.sub
 configure
 depcomp
 install-sh
+libtool
+ltmain.sh
 missing
