@@ -4,10 +4,11 @@ AC_CONFIG_MACRO_DIRS([share/autoconf/autoconf])
 
 AC_PROG_CXX
 
-AX_PTHREAD
+AX_CXX_COMPILE_STDCXX([17], [noext], [mandatory])
 
 AX_BOOST_BASE([1.69])
 AX_BOOST_ASIO
+AX_PTHREAD
 
 AC_CONFIG_FILES([
 	Makefile
