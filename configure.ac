@@ -19,7 +19,7 @@ AC_CONFIG_FILES([
 	include/Makefile
 	src/Makefile
 	src/libtrustedvote/Makefile
-	src/trusted-vote/Makefile
+	src/trustedvoted/Makefile
 ])
 
 AC_OUTPUT

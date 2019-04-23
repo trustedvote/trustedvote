@@ -1,1 +1,1 @@
-SUBDIRS = libtrustedvote trusted-vote
+SUBDIRS = libtrustedvote trustedvoted
