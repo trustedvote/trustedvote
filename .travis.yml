@@ -1,8 +1,8 @@
 language: cpp
-dist: xenial
 matrix:
   include:
     - os: linux
+      dist: xenial
       addons:
         apt:
           sources:
