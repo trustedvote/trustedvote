@@ -1,4 +1,5 @@
 language: cpp
+dist: xenial
 matrix:
   include:
     - os: linux
@@ -9,7 +10,8 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
-            - boost1.67
+            - libboost1.67
+            - libboost1.67-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
