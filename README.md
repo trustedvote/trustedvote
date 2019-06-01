@@ -31,3 +31,17 @@ This is a core of Trusted Vote system. It contains libtrustedvote, which is the 
 ```sh
 make
 ```
+
+## Running tests
+
+To run all unit tests, do:
+
+```sh
+make check
+```
+
+To run a specific unit test for libtrustedvote, do:
+
+```sh
+./src/libtrustedvote/libtrustedvote-test --run_test=SUITENAME/CASENAME
+```

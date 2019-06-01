@@ -1,6 +1,7 @@
 *.la
 *.lo
 *.o
+*.trs
 .deps/
 .dirstamp
 .libs
@@ -10,6 +11,8 @@
 /share/autoconf/autoconf/ltsugar.m4
 /share/autoconf/autoconf/ltversion.m4
 /share/autoconf/autoconf/lt~obsolete.m4
+/src/libtrustedvote/libtrustedvote-test
+/src/libtrustedvote/libtrustedvote-test.log
 Makefile
 Makefile.in
 aclocal.m4
@@ -26,3 +29,5 @@ install-sh
 libtool
 ltmain.sh
 missing
+test-driver
+test-suite.log
