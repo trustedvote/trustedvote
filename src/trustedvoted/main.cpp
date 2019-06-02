@@ -1,3 +1,5 @@
+#include <trustedvote/config.hpp>
+
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/signal_set.hpp>
 
@@ -7,6 +9,7 @@
 #include <iostream>
 #include <ostream>
 
+static trustedvote::config conf;
 static boost::asio::io_context asio;
 
 static void terminate()
@@ -21,7 +24,20 @@ static void on_terminate_signal(const boost::system::error_code& e, int s)
 
 int main(int argc, char *argv[])
 {
-	std::cout << "Initializing..." << std::endl;
+	// load config
+	std::cout << "Loading " << trustedvote::config::default_json_file << ".";
+	std::cout << std::endl;
+
+	try {
+		conf = trustedvote::config::load_json(
+			trustedvote::config::default_json_file
+		);
+	} catch (std::exception &e) {
+		std::cout << "Failed to load ";
+		std::cout << trustedvote::config::default_json_file << ": " << e.what();
+		std::cout << std::endl;
+		return EXIT_FAILURE;
+	}
 
 	// setup signal handling
 	boost::asio::signal_set sigs(asio);

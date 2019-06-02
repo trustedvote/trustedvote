@@ -20,8 +20,6 @@ AC_CONFIG_FILES([
 	Makefile
 	include/Makefile
 	src/Makefile
-	src/libtrustedvote/Makefile
-	src/trustedvoted/Makefile
 ])
 
 AC_OUTPUT

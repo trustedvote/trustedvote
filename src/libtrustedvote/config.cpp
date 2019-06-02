@@ -8,6 +8,8 @@
 
 namespace trustedvote {
 
+	std::filesystem::path const config::default_json_file("trustedvote.json");
+
 	config config::load_json(std::filesystem::path const &path)
 	{
 		// open json.
