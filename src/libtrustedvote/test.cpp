@@ -1,11 +1,7 @@
 #define BOOST_TEST_MODULE Trusted Vote Core Tests
+#define BOOST_TEST_NO_MAIN
 
-#include <boost/test/included/unit_test.hpp>
-
-BOOST_AUTO_TEST_CASE(dummy_test)
-{
-	// TODO: remove this when there is other tests
-}
+#include <boost/test/unit_test.hpp>
 
 int main(int argc, char *argv[])
 {
