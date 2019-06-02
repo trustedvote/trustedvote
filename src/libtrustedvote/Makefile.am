@@ -26,4 +26,4 @@ libtrustedvote_test_LDADD = \
 
 libtrustedvote_test_SOURCES = \
 	config.test.cpp \
-	test.cpp
+	test-main.cpp
