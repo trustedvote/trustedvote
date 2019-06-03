@@ -27,6 +27,7 @@ libtrustedvote_libtrustedvote_test_LDFLAGS = \
 	$(BOOST_LDFLAGS)
 libtrustedvote_libtrustedvote_test_LDADD = \
 	libtrustedvote/libtrustedvote.la \
+	-lstdc++fs \
 	$(BOOST_UNIT_TEST_FRAMEWORK_LIB)
 libtrustedvote_libtrustedvote_test_SOURCES = \
 	libtrustedvote/config.test.cpp \
