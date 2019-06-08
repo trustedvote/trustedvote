@@ -5,13 +5,13 @@ matrix:
       dist: xenial
       addons:
         apt:
-          update: true
           sources:
             - sourceline: 'ppa:mhier/libboost-latest'
             - ubuntu-toolchain-r-test
           packages:
             - g++-8
-            - boost1.67
+            - libboost1.67
+            - libboost1.67-dev
       env:
         - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
 
@@ -22,3 +22,4 @@ script:
   - ./autogen.sh
   - ./configure
   - make
+  - make check
