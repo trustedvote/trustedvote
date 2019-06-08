@@ -15,6 +15,6 @@ indent_style = tab
 [*.{c,h,cpp,hpp}]
 indent_size = tab
 
-[*.{yml}]
+[*.{json,yml}]
 indent_style = space
 indent_size = 2
