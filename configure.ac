@@ -10,16 +10,16 @@ LT_INIT
 
 AX_CXX_COMPILE_STDCXX([17], [noext], [mandatory])
 
+AX_PTHREAD
+
 AX_BOOST_BASE([1.67])
 AX_BOOST_ASIO
-AX_PTHREAD
+AX_BOOST_UNIT_TEST_FRAMEWORK
 
 AC_CONFIG_FILES([
 	Makefile
 	include/Makefile
 	src/Makefile
-	src/libtrustedvote/Makefile
-	src/trustedvoted/Makefile
 ])
 
 AC_OUTPUT

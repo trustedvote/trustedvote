@@ -22,3 +22,4 @@ script:
   - ./autogen.sh
   - ./configure --with-boost-libdir=/usr/lib
   - make
+  - make check

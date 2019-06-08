@@ -1,1 +1,2 @@
-nobase_include_HEADERS = trustedvote/chain/param.hpp
+nobase_include_HEADERS = \
+	trustedvote/config.hpp
