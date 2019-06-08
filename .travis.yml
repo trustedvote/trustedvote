@@ -20,5 +20,5 @@ before_install:
 
 script:
   - ./autogen.sh
-  - ./configure
+  - ./configure --with-boost-libdir=/usr/lib
   - make
