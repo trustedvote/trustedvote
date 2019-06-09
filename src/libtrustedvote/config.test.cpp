@@ -65,7 +65,24 @@ BOOST_FIXTURE_TEST_CASE(
 	file.close();
 
 	// load json
-	trustedvote::config::load_json(path);
+	auto conf = trustedvote::config::load_json(path);
+
+	// assert
+	BOOST_TEST(conf.network.server.interfaces.size() == 1);
+	BOOST_TEST(conf.network.server.interfaces[0] == "0.0.0.0");
+	BOOST_TEST(conf.network.server.port == 3333);
+}
+
+BOOST_AUTO_TEST_CASE(load_json)
+{
+	auto dir = std::filesystem::path(__FILE__).parent_path();
+	auto conf = trustedvote::config::load_json(dir / "config.test.json");
+
+	BOOST_TEST(conf.network.server.interfaces.size() == 2);
+	BOOST_TEST(conf.network.server.interfaces[0] == "127.0.0.1");
+	BOOST_TEST(conf.network.server.interfaces[1] == "::1");
+
+	BOOST_TEST(conf.network.server.port == 7777);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
