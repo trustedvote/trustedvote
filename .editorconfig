@@ -12,7 +12,7 @@ insert_final_newline = true
 [Makefile]
 indent_style = tab
 
-[*.{c,h,cpp,hpp}]
+[*.{c,h,cpp,hpp,ac}]
 indent_size = tab
 
 [*.{json,yml}]
