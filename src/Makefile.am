@@ -3,7 +3,6 @@ TESTS = libtrustedvote/libtrustedvote-test
 bin_PROGRAMS = trustedvoted/trustedvoted
 check_PROGRAMS = libtrustedvote/libtrustedvote-test
 lib_LTLIBRARIES = libtrustedvote/libtrustedvote.la
-noinst_DATA = libtrustedvote/config.test.json
 
 # libtrustedvote/libtrustedvote.la
 
