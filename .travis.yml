@@ -21,5 +21,12 @@ before_install:
 script:
   - ./autogen.sh
   - ./configure --with-boost-libdir=/usr/lib
+  - make dist
+  - VERSION=$(head -n 1 configure.ac | cut -d'[' -f3 | cut -d']' -f1)
+  - tar -xvzf "trusted-vote-$VERSION.tar.gz"
+  - rm -f "trusted-vote-$VERSION.tar.gz"
+  - pushd "trusted-vote-$VERSION"
+  - ./configure --with-boost-libdir=/usr/lib
   - make
   - make check
+  - popd
