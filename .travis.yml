@@ -22,10 +22,10 @@ script:
   - ./autogen.sh
   - ./configure --with-boost-libdir=/usr/lib
   - make dist
-  - VERSION=$(head -n 1 configure.ac | cut -d'[' -f3 | cut -d']' -f1)
-  - tar -xvzf "trusted-vote-$VERSION.tar.gz"
-  - rm -f "trusted-vote-$VERSION.tar.gz"
-  - pushd "trusted-vote-$VERSION"
+  - mkdir dist
+  - tar -xvzf "trusted-vote-*.tar.gz" -C dist --strip-components=1
+  - rm -f "trusted-vote-*.tar.gz"
+  - pushd "dist"
   - ./configure --with-boost-libdir=/usr/lib
   - make
   - make check
