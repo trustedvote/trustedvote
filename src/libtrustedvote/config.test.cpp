@@ -65,7 +65,45 @@ BOOST_FIXTURE_TEST_CASE(
 	file.close();
 
 	// load json
-	trustedvote::config::load_json(path);
+	auto conf = trustedvote::config::load_json(path);
+
+	// assert
+	BOOST_TEST(conf.network.server.interfaces.size() == 1);
+	BOOST_TEST(conf.network.server.interfaces[0] == "0.0.0.0");
+	BOOST_TEST(conf.network.server.port == 3333);
+}
+
+BOOST_FIXTURE_TEST_CASE(load_json, load_json_file_fixture)
+{
+	// create json
+	std::ofstream file;
+
+	file.exceptions(std::ios_base::failbit | std::ios_base::badbit);
+	file.open(path);
+
+	file << R"(
+{
+  "network": {
+    "server": {
+      "interfaces": [
+        "127.0.0.1",
+        "::1"
+      ],
+      "port": 7777
+    }
+  }
+})" << std::endl;
+
+	file.close();
+
+	// load json
+	auto conf = trustedvote::config::load_json(path);
+
+	BOOST_TEST(conf.network.server.interfaces.size() == 2);
+	BOOST_TEST(conf.network.server.interfaces[0] == "127.0.0.1");
+	BOOST_TEST(conf.network.server.interfaces[1] == "::1");
+
+	BOOST_TEST(conf.network.server.port == 7777);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

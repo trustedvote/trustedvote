@@ -5,6 +5,34 @@
 
 #include <fstream>
 #include <ios>
+#include <utility>
+
+static trustedvote::config parse_config(boost::property_tree::ptree const &data)
+{
+	trustedvote::config conf;
+
+	// server binding interfaces
+	if (auto ifaces = data.get_child_optional("network.server.interfaces")) {
+		for (auto &iface : ifaces.get()) {
+			auto value = iface.second.get_value<std::string>();
+			conf.network.server.interfaces.emplace_back(std::move(value));
+		}
+	} else {
+		conf.network.server.interfaces.push_back("0.0.0.0");
+	}
+
+	if (conf.network.server.interfaces.empty()) {
+		throw std::runtime_error("No network interface to bind");
+	}
+
+	// server port
+	conf.network.server.port = data.get<unsigned short>(
+		"network.server.port",
+		3333
+	);
+
+	return conf;
+}
 
 namespace trustedvote {
 
@@ -22,10 +50,7 @@ namespace trustedvote {
 		boost::property_tree::ptree json;
 		boost::property_tree::read_json(file, json);
 
-		// construct model
-		config conf;
-
-		return conf;
+		return parse_config(json);
 	}
 
 }
