@@ -23,8 +23,8 @@ script:
   - ./configure --with-boost-libdir=/usr/lib
   - make dist
   - mkdir dist
-  - tar -xvzf trusted-vote-*.tar.gz -C dist --strip-components=1
-  - rm -f trusted-vote-*.tar.gz
+  - tar -xvzf trustedvote-*.tar.gz -C dist --strip-components=1
+  - rm -f trustedvote-*.tar.gz
   - pushd "dist"
   - ./configure --with-boost-libdir=/usr/lib
   - make
