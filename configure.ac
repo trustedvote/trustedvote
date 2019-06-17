@@ -1,4 +1,4 @@
-AC_INIT([trusted-vote], [0.1])
+AC_INIT([trustedvote], [0.1])
 AM_INIT_AUTOMAKE([foreign no-define nostdinc subdir-objects -Wall])
 
 AC_CONFIG_MACRO_DIRS([share/autoconf/autoconf])
