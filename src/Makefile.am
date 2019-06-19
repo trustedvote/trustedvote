@@ -44,6 +44,9 @@ trustedvoted_trustedvoted_LDFLAGS = \
 trustedvoted_trustedvoted_LDADD = \
 	libtrustedvote/libtrustedvote.la \
 	$(BOOST_ASIO_LIB) \
+	$(BOOST_PROGRAM_OPTIONS_LIB) \
 	$(PTHREAD_CFLAGS)
 trustedvoted_trustedvoted_SOURCES = \
-	trustedvoted/main.cpp
+	trustedvoted/main.cpp \
+	trustedvoted/options.cpp \
+	trustedvoted/options.hpp

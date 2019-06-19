@@ -1,0 +1,7 @@
+#ifndef TRUSTEDVOTED_OPTIONS_HPP
+#define TRUSTEDVOTED_OPTIONS_HPP
+
+class options final {
+};
+
+#endif // TRUSTEDVOTED_OPTIONS_HPP
