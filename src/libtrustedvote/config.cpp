@@ -43,7 +43,7 @@ static tv::config parse_config(boost::property_tree::ptree const &data)
 	tv::config conf;
 
 	// server nodes
-	if (auto nodes = data.get_child_optional("network.server.nodes")) {
+	if (auto nodes = data.get_child_optional("network.server.nodes"); nodes.has_value()) {
 		for (auto it = nodes.get().begin(); it != nodes.get().end(); it++) {
 			auto num = std::distance(nodes.get().begin(), it);
 			auto node = parse_node_config(it->second, num);

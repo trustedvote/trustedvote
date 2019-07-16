@@ -51,6 +51,8 @@ trustedvoted_trustedvoted_LDADD = \
 	$(BOOST_PROGRAM_OPTIONS_LIB) \
 	$(PTHREAD_CFLAGS)
 trustedvoted_trustedvoted_SOURCES = \
+	trustedvoted/local_node.cpp \
+	trustedvoted/local_node.hpp\
 	trustedvoted/main.cpp \
 	trustedvoted/options.cpp \
 	trustedvoted/options.hpp

@@ -1,3 +1,4 @@
+#include "local_node.hpp"
 #include "options.hpp"
 
 #include <trustedvote/config.hpp>
@@ -15,22 +16,24 @@
 #include <ostream>
 #include <vector>
 
+namespace tv = trustedvote;
+
 static options opts;
-static trustedvote::config conf;
+static tv::config conf;
 static boost::asio::io_context asio;
-static std::vector<boost::asio::ip::tcp::acceptor> servers;
+static std::vector<local_node> servers; // this must come after asio
 
 static void terminate()
 {
 	for (auto &server : servers) {
-		std::cout << "Stopping server " << server.local_endpoint() << ".";
+		std::cout << "Stopping server " << server.endpoint() << ".";
 		std::cout << std::endl;
 
-		server.close();
+		server.stop();
 	}
 }
 
-static void on_terminate_signal(const boost::system::error_code& e, int s)
+static void on_terminate_signal(boost::system::error_code const &e, int s)
 {
 	terminate();
 }
@@ -64,12 +67,6 @@ static bool parse_arguments(int argc, char *argv[])
 	return true;
 }
 
-static void accept_connection(
-	boost::system::error_code const &ec,
-	boost::asio::ip::tcp::socket s)
-{
-}
-
 int main(int argc, char *argv[])
 {
 	// parse arguments
@@ -83,16 +80,13 @@ int main(int argc, char *argv[])
 	}
 
 	// load config
-	std::cout << "Loading " << trustedvote::config::default_json_file << ".";
-	std::cout << std::endl;
+	std::cout << "Loading " << tv::config::default_json_file << "." << std::endl;
 
 	try {
-		conf = trustedvote::config::load_json(
-			trustedvote::config::default_json_file
-		);
+		conf = tv::config::load_json(tv::config::default_json_file);
 	} catch (std::exception &e) {
 		std::cout << "Failed to load ";
-		std::cout << trustedvote::config::default_json_file << ": " << e.what();
+		std::cout << tv::config::default_json_file << ": " << e.what();
 		std::cout << "." << std::endl;
 		return EXIT_FAILURE;
 	}
@@ -104,9 +98,15 @@ int main(int argc, char *argv[])
 		addr.address(boost::asio::ip::make_address(node.address));
 		addr.port(conf.network.server.port);
 
-		std::cout << "Starting node " << addr << "." << std::endl;
+		std::cout << "Starting node " << addr;
 
-		servers.emplace_back(asio, addr).async_accept(accept_connection);
+		if (auto caps = node.capabilities; caps != tv::node_capability()) {
+			std::cout << " with capabilities " << std::to_string(caps) << "." << std::endl;
+		} else {
+			std::cout << "." << std::endl;
+		}
+
+		servers.emplace_back(node.capabilities, asio).start(addr);
 	}
 
 	// setup signal handling
