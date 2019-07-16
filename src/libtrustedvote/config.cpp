@@ -3,26 +3,60 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 
+#include <cstddef>
 #include <fstream>
 #include <ios>
+#include <iterator>
+#include <string>
 #include <utility>
 
-static trustedvote::config parse_config(boost::property_tree::ptree const &data)
-{
-	trustedvote::config conf;
+namespace tv = trustedvote;
 
-	// server binding interfaces
-	if (auto ifaces = data.get_child_optional("network.server.interfaces")) {
-		for (auto &iface : ifaces.get()) {
-			auto value = iface.second.get_value<std::string>();
-			conf.network.server.interfaces.emplace_back(std::move(value));
-		}
-	} else {
-		conf.network.server.interfaces.push_back("0.0.0.0");
+static tv::node_config parse_node_config(boost::property_tree::ptree const &data, std::size_t num)
+{
+	auto addr = data.get_optional<std::string>("address");
+	auto caps = data.get_optional<std::string>("capabilities");
+
+	if (!addr) {
+		throw std::runtime_error("No 'address' configured for node " + std::to_string(num));
 	}
 
-	if (conf.network.server.interfaces.empty()) {
-		throw std::runtime_error("No network interface to bind");
+	auto node = tv::node_config{.address = addr.get()};
+
+	if (caps) {
+		auto r = std::from_chars(
+			caps.get().c_str(),
+			caps.get().c_str() + caps.get().size(),
+			node.capabilities
+		);
+
+		if (r.ec != std::errc()) {
+			throw std::runtime_error("Invalid 'capabilities' for node " + std::to_string(num));
+		}
+	}
+
+	return node;
+}
+
+static tv::config parse_config(boost::property_tree::ptree const &data)
+{
+	tv::config conf;
+
+	// server nodes
+	if (auto nodes = data.get_child_optional("network.server.nodes")) {
+		for (auto it = nodes.get().begin(); it != nodes.get().end(); it++) {
+			auto num = std::distance(nodes.get().begin(), it);
+			auto node = parse_node_config(it->second, num);
+			conf.network.server.nodes.push_back(std::move(node));
+		}
+	} else {
+		conf.network.server.nodes.push_back(tv::node_config{
+			.address = "0.0.0.0"
+		});
+	}
+
+	if (conf.network.server.nodes.empty()) {
+		throw std::runtime_error("No any local nodes to start");
 	}
 
 	// server port

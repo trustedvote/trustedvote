@@ -97,14 +97,14 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	// start servers.
-	for (auto &iface : conf.network.server.interfaces) {
+	// start nodes
+	for (auto &node : conf.network.server.nodes) {
 		boost::asio::ip::tcp::endpoint addr;
 
-		addr.address(boost::asio::ip::make_address(iface));
+		addr.address(boost::asio::ip::make_address(node.address));
 		addr.port(conf.network.server.port);
 
-		std::cout << "Starting server " << addr << "." << std::endl;
+		std::cout << "Starting node " << addr << "." << std::endl;
 
 		servers.emplace_back(asio, addr).async_accept(accept_connection);
 	}
