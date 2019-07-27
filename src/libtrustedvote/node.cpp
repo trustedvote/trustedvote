@@ -41,10 +41,16 @@ namespace std {
 		stringstream s;
 
 		if (tv::has_seeding(caps)) {
-			s << "|seeding";
+			s << "seeding|";
 		}
 
-		return s.str().erase(0, 1);
+		auto r = s.str();
+
+		if (!r.empty()) {
+			r.resize(r.size() - 1); // remove last pipe
+		}
+
+		return r;
 	}
 
 	from_chars_result from_chars(char const *first, char const *last, tv::node_capability &value)
