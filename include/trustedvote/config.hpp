@@ -1,14 +1,21 @@
 #ifndef TRUSTEDVOTE_CONFIG_HPP
 #define TRUSTEDVOTE_CONFIG_HPP
 
+#include "node.hpp"
+
 #include <filesystem>
 #include <string>
 #include <vector>
 
 namespace trustedvote {
 
+	struct node_config {
+		std::string address;
+		node_capability capabilities;
+	};
+
 	struct server_config {
-		std::vector<std::string> interfaces;
+		std::vector<node_config> nodes;
 		unsigned short port;
 	};
 

@@ -15,7 +15,9 @@ libtrustedvote_libtrustedvote_la_LDFLAGS = \
 libtrustedvote_libtrustedvote_la_LIBADD = \
 	-lstdc++fs
 libtrustedvote_libtrustedvote_la_SOURCES = \
-	libtrustedvote/config.cpp
+	libtrustedvote/config.cpp \
+	libtrustedvote/local_node.cpp \
+	libtrustedvote/node.cpp
 
 # libtrustedvote/libtrustedvote-test
 
@@ -31,6 +33,8 @@ libtrustedvote_libtrustedvote_test_LDADD = \
 	$(BOOST_UNIT_TEST_FRAMEWORK_LIB)
 libtrustedvote_libtrustedvote_test_SOURCES = \
 	libtrustedvote/config.test.cpp \
+	libtrustedvote/local_node.test.cpp \
+	libtrustedvote/node.test.cpp \
 	libtrustedvote/test-main.cpp
 
 # trustedvoted/trustedvoted
@@ -47,6 +51,8 @@ trustedvoted_trustedvoted_LDADD = \
 	$(BOOST_PROGRAM_OPTIONS_LIB) \
 	$(PTHREAD_CFLAGS)
 trustedvoted_trustedvoted_SOURCES = \
+	trustedvoted/local_node.cpp \
+	trustedvoted/local_node.hpp\
 	trustedvoted/main.cpp \
 	trustedvoted/options.cpp \
 	trustedvoted/options.hpp
